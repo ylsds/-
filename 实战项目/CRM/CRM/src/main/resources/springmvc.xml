@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<!--组件扫描器-->
+    <context:component-scan base-package="ds.controller"></context:component-scan>
+
+<!--注册驱动-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    
+    <mvc:resources mapping="/image/**" location="/image/"></mvc:resources>
+    <mvc:resources mapping="/jquery/**" location="/jquery/"></mvc:resources>
+    <mvc:resources mapping="/settings/**" location="/settings/"></mvc:resources>
+    <mvc:resources mapping="/workbench/**" location="/workbench/"></mvc:resources>
+    <mvc:resources mapping="/index/**" location="/index/"></mvc:resources>
+
+<!--声明拦截器-->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <mvc:exclude-mapping path="/image/**"/>-->
+<!--            <mvc:exclude-mapping path="/jquery/**"/>-->
+<!--            <bean class="ds.Interceptor.MyInterceptor"></bean>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+
+
+
+<!--&lt;!&ndash;声明业务方法的事务属性&ndash;&gt;-->
+<!--    <tx:advice id="myAdvice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+
+<!--&lt;!&ndash;配置切入点表达式&ndash;&gt;-->
+<!--<aop:config>-->
+<!--    <aop:pointcut id="servicePt" expression="execution(* *..serviceImp..*.*(..))"/>-->
+<!--    <aop:advisor advice-ref="myAdvice" pointcut-ref="servicePt"></aop:advisor>-->
+<!--</aop:config>-->
+</beans>

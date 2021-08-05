@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    <environments default="development"><!--environments中有多个environment标签时，该处的default的值要与其中一个子标签的id相同-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/egov"/>
+                <property name="username" value="root"/>
+                <property name="password" value="999125"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/dao/UserDao.xml"/>
+        <mapper resource="com/dao/InvestDao.xml"/>
+        <mapper resource="com/dao/EnterDao.xml"/>
+        <mapper resource="com/dao/AuthDao.xml"/>
+    </mappers>
+</configuration>

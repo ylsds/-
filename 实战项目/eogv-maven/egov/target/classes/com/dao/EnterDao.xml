@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--指定约束文件-->
+<mapper namespace="com.dao.EnterDao">
+    <select id="selectOrg" resultType="com.domain.Enterprise">
+        select * from t_enterprise where orgcode=#{orgcode}
+    </select>
+
+    <insert id="SaveEnter" parameterType="com.domain.Enterprise">
+        insert into t_enterprise values( #{orgcode},#{regno},#{cnname},#{enname},#{contactman},#{contacttel},
+        #{regcap},#{outregcap},#{regcry},#{usercode},#{regdate})
+    </insert>
+
+    <insert id="SaveEnterandInv">
+        insert into t_en_inv (orgcode,invregnum,regcap,scale)values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orgcode},#{item.invregnum},#{item.regcap},#{item.scale})
+        </foreach>
+    </insert>
+
+
+    <select id="querySelectEnter" parameterType="Map" resultType="java.util.HashMap">
+       select e.*,sum(ei.regcap) regcap,u.* from t_enterprise e
+       join t_en_inv ei
+       on e.orgcode=ei.orgcode
+       join t_user u
+       on u.usercode=e.usercode
+        <where>
+            <if test="orgcode!=null and orgcode!=''">
+                e.orgcode=#{orgcode}
+            </if>
+            <if test="cnname!=null and cnname!=''">
+                and e.invname=#{invname}
+            </if>
+            <if test="startdate!=null and startdate!=''">
+                and e.regdate &gt;=#{startdate}
+            </if>
+            <if test="enddate!=null and enddate!=''">
+                and e.regdate &lt;= #{enddate}
+            </if>
+        </where>
+        group by ei.orgcode
+        <if test="begin!=null and size!=null">
+            limit #{begin},#{size}
+        </if>
+    </select>
+
+</mapper>

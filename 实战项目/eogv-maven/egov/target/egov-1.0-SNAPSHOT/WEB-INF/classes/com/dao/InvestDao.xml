@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--指定约束文件-->
+<mapper namespace="com.dao.InvestDao">
+    <insert id="SaveInvInf" parameterType="Map">
+    insert into t_invest
+    (invname,cty,orgcode,contactman,contacttel,email,remark,regdate,usercode)
+    values(#{invname},#{cty},#{orgcode},#{contactman},#{contacttel},#{email},#{remark},#{regdate},#{usercode})
+</insert>
+
+    <select id="querySelectInv" parameterType="Map" resultType="com.domain.Invest">
+        select t.*,u.username username
+        from t_invest t
+        join t_user u
+        on t.usercode=u.usercode
+        <where>
+            <if test="invregnum!=null and invregnum!=''">
+                invregnum=#{invregnum}
+            </if>
+            <if test="invname!=null and invname!=''">
+                and invname=#{invname}
+            </if>
+            <if test="startdate!=null and startdate!=''">
+                and regdate &gt;=#{startdate}
+            </if>
+            <if test="enddate!=null and enddate!=''">
+                and enddate &lt;= #{enddate}
+            </if>
+        </where>
+        <if test="begin!=null and size!=null">
+            limit #{begin},#{size}
+        </if>
+    </select>
+
+    <select id="SelectOne" resultType="com.domain.Invest">
+        select * from t_invest where Invregnum=#{Invregnum}
+    </select>
+</mapper>

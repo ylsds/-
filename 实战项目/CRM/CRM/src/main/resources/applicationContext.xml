@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder location="classpath:Jdbc.properties"></context:property-placeholder>
+    <bean id="dateSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="maxActive" value="20"></property>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:Mybatis.xml"></property>
+        <property name="dataSource" ref="dateSource"></property>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="ds.dao"></property>
+    </bean>
+
+
+    <!--使用AspectJ的AOP配置管理事务-->
+<!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="dateSource"></property>-->
+<!--    </bean>-->
+<!--    <tx:advice id="myAdvice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+<!--事务与切面进行关联-->
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="servicePt" expression="execution(* ds.serviceImp.*.*(..))"/>-->
+<!--        <aop:advisor advice-ref="myAdvice" pointcut-ref="servicePt"></aop:advisor>-->
+<!--    </aop:config>-->
+    <context:component-scan base-package="ds.serviceImp"></context:component-scan>
+
+
+    <!--  声明事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dateSource"></property>
+    </bean>
+    <!-- 事务注解驱动-->
+        <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+</beans>

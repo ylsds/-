@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--指定约束文件-->
+<mapper namespace="com.dao.UserDao">
+    <!--添加系统用户-->
+    <insert id="insertUser" parameterType="com.domain.User">
+        insert into t_user(usercode,username,orgtype,userpswd,regdate) values(#{usercode},#{username},#{orgtype},#{userpswd},#{regdate});
+    </insert>
+
+    <!--查询所有的系统用户-->
+    <select id="selctAllUser1" resultType="com.domain.User">
+        select * from t_user order by regdate desc
+    </select>
+
+    <select id="selctAllUser2" resultType="com.domain.User">
+        select * from t_user order by regdate desc limit #{begin} ,#{size}
+    </select>
+
+    <select id="selectOneUser" resultType="com.domain.User">
+        select * from t_user where usercode=#{usercode}
+    </select>
+
+    <update id="updateOneUser1" parameterType="com.domain.User" >
+        update t_user set username=#{username},orgtype=#{orgtype},userpswd=#{userpswd} where usercode=#{usercode}
+    </update>
+    
+    <delete id="deleteUser">
+        delete  from t_user where usercode in 
+        <foreach collection="array" item="usercode" open="(" close=")" separator=",">
+            #{usercode}
+        </foreach>
+    </delete>
+
+    <select id="selectOneUser2" parameterType="com.domain.User" resultType="com.domain.User">
+        select * from t_user where orgtype=#{orgtype} and usercode=#{usercode} and userpswd=#{userpswd}
+    </select>
+
+
+</mapper>

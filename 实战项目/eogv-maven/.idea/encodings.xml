@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/egov/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/ServiceImp/AuthServiceImp.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/ServiceImp/EnterServiceImp.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/ServiceImp/InvServiceImp.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/ServiceImp/UserServiceImp.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/Const.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/DBUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/DateUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/MyHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/SqlSessionUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/Util/WebUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/dao/AuthDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/dao/UserDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/domain/Page.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/service/EnterService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/service/InvService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/service/UserService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Auth/SaveAuth.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Auth/SelectAuth.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Auth/UpdateFeek.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Enterprise/SaveEnterandAllinv.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Enterprise/SelectOrgcode.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/Inv/QueryInv.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/AjaxSaveUser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/DeleteUser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/LoginUser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/PageQueryUserLJ.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/PageQueryUserWL.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/Saveuser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/SelectUser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/java/com/servlet/User/Updateuser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/egov/src/main/resources" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

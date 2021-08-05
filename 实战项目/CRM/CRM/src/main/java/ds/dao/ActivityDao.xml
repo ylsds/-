@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--指定约束文件-->
+<mapper namespace="ds.dao.ActivityDao">
+
+    <select id="selectUsers" resultType="ds.domain.User">
+        select id,name from tbl_user
+    </select>
+
+
+    <insert id="saveActivity" parameterType="ds.domain.Activity">
+        insert into tbl_activity (id,owner,name,startDate,endDate,cost,description,createTime,createBy)
+        values (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description}
+        ,#{createTime},#{createBy})
+    </insert>
+
+
+    <select id="selectActivitys" resultType="ds.domain.Activity" parameterType="map">
+        select id from tbl_activity
+        <where>
+            <if test="name!=null and name!=''">
+                name like '%' #{name} '%'
+            </if>
+            <if test="owner!=null and owner!=''">
+                 and owner=like '%' #{owner} '%'
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                and startDate ge #{startDate}
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                and endDate le #{endDate}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="synamicSelectActivitys" parameterType="map" resultType="ds.domain.Activity">
+        select * from tbl_activity
+        <where>
+            <if test="name!=null and name!=''">
+                name like '%' #{name} '%'
+            </if>
+            <if test="owner!=null and owner!=''">
+                and owner=like '%' #{owner} '%'
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                and startDate ge #{startDate}
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                and endDate le #{endDate}
+            </if>
+        </where>
+        order by createTime desc limit #{begin},#{pagesize}
+    </select>
+
+
+    <delete id="deleteActivity">
+        delete from tbl_activity
+        where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteActivityRemark">
+        delete from tbl_activity_remark
+        where activityId in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectActivity" resultType="map">
+        select a.*,t.name editname,u.name towner from tbl_activity a join tbl_user u on a.owner=u.id join tbl_user t
+        on t.id=a.editBy
+        where a.id=#{id}
+    </select>
+
+    <update id="updateActivity" parameterType="ds.domain.Activity">
+        update tbl_activity set owner=#{owner},
+					name=#{name},
+					startDate=#{startDate},
+					endDate=#{endDate},
+					cost=#{cost},
+					description=#{description},
+					editTime=#{editTime},
+					editBy=#{editBy}
+					where id=#{id}
+    </update>
+    
+    <insert id="addRemark" parameterType="ds.domain.ActivityRemark">
+        insert into tbl_activity_remark (id,noteContent,createTime,createBy,activityId)
+        values (#{id},#{noteContent},#{createTime},#{createBy},#{activityId});
+    </insert>
+
+
+    <select id="selectRemark" resultType="map">
+        select a.*,b.name bname,c.name username from tbl_activity_remark a join tbl_activity b on b.id=a.activityId join tbl_user c on a.createBy=c.id
+        where a.activityId=#{id}
+        order by a.createTime asc
+    </select>
+
+</mapper>

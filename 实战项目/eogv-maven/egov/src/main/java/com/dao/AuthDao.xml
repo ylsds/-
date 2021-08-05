@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--指定约束文件-->
+<mapper namespace="com.dao.AuthDao">
+
+    <insert id="saveAuth1" parameterType="com.domain.Auth">
+        insert into t_auth (orgcode,remark,contactman,contacttel,filename,fileremark,authno,usercode)
+        values
+        (#{orgcode},#{remark},#{contactman},#{contacttel},#{filename},#{fileremark},#{authno},#{usercode})
+    </insert>
+
+    <select id="SelectAuth" resultType="com.domain.Auth">
+        select a.*,sum(ei.regcap) regcap ,e.regcry regcry ,e.regdate regdate from t_auth a
+        join t_enterprise e
+        on a.orgcode=e.orgcode
+        join t_en_inv ei
+        on ei.orgcode=a.orgcode
+        where a.authno=#{authno}
+        group by a.orgcode
+
+    </select>
+
+
+    <update id="UpdateAuthFeek">
+        update t_auth set feedback='1' where authno=#{authno}
+    </update>
+</mapper>
