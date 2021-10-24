@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 # 零.动态代理深度理解：
 
 ## 0.1、前提准备：			
@@ -90,7 +94,7 @@
 >
 > - **Spring 框架使用依赖注入（DI）实现 IoC。**
 >
-> - **Spring 容器是一个超级大工厂，负责创建、管理所有的 Java 对象，这些 Java 对象被称为 Bean。**Spring 容器管理着容器中 Bean 之间的依赖关系，Spring 使用“依赖注入”的方式来管理 Bean 之间的依赖关系。**使用 IoC 实现对象之间的解耦和。**
+> - **Spring 容器是一个超级大工厂，负责创建、管理所有的 Java 对象，这些 Java 对象被称为 Bean（单例）。**Spring 容器管理着容器中 Bean 之间的依赖关系，Spring 使用“依赖注入”的方式来管理 Bean 之间的依赖关系。**使用 IoC 实现对象之间的解耦和。**
 
 ## 2.1Spring 的第一个程序(maven项目)
 
@@ -136,7 +140,7 @@ public class SomeServiceImpl implements SomeService {
 
 > spring 配置文件加入 java.util.Date 定义：
 >
-> <bean id="myDate" class="java.util.Date" />
+> < bean id="myDate" class="java.util.Date"  />
 
 ### 2.1.5 容器接口和实现类
 
@@ -329,7 +333,7 @@ public class Student {
 
 ### 2.4.1 定义 Bean 的注解@Component(掌握)
 
-> **@component:**创建对象的，等同于bean>的功能
+> **@component:**创建对象的，等同于< bean>的功能
 >
 > - **属性**:value就是对象的名称，也就是bean的id值，value的值是唯一的，创建的对象在整个spring容器中就一个
 >
@@ -605,7 +609,7 @@ public class Student {
 > > 3. 方法名称自定义
 > > 4. 方法可以有参数，也可以没有参数。如果有参数，参数不是自定义的，有几个参数类型可以使用
 
-### （3） [掌握]@Before 前置通知-方法有 JoinPoint 参数
+### （3）[掌握]@Before 前置通知-方法有 JoinPoint 参数
 
 > @Before:前置通知注解
 >
@@ -634,7 +638,7 @@ public class Student {
 @Component//切面类
 @Aspect
 public class MyAspect {
-@Before(value="execution(* com.c01.SomeServiceImp.doSome(..))")
+@Before(value="execution(* com.c01.SomeServiceImp.doSome(..))")//定位业务方法
     public void Mybefore(JoinPoint jp){//切面方法
         System.out.println(jp.getSignature().getName());//方法名称
         System.out.println("前置通知，在方法执行之前执行，输出执行时间："+new Date());
@@ -748,7 +752,7 @@ public class SomeServiceImp implements SomeService {
 > - 属性:
 >
 > - > 1. value切入点表达式 
->   > 2. throwinng自定义的变量，表示**目标方法抛出的异常对象。变量名必须和方法的参数名一样**
+>   > 2. throwing自定义的变量，表示**目标方法抛出的异常对象。变量名必须和方法的参数名一样**
 >
 > - 特点:
 >
@@ -955,7 +959,7 @@ MapperScannerConfigurer会扫描这个包中的所有接口,把每个接口都�
 >
 > - 你需要**告诉spring 你用是那种数据库的访问技术**，怎么告诉spring呢？
 >
-> - > 声明数据库访问技术对于的事务管理器实现类， 在spring的配置文件中使用<bean>声明就可以了
+> - > 声明数据库访问技术对于的事务管理器实现类， 在spring的配置文件中使用< bean>声明就可以了
 >   >   例如，你要使用mybatis访问数据库，你应该在xml配置文件中
 >   >   <bean id=“xxx" class="...DataSourceTransactionManager"> //mybatis
 
@@ -1103,7 +1107,7 @@ MapperScannerConfigurer会扫描这个包中的所有接口,把每个接口都�
 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <!--连接的数据库，指定数据源--->
         <property name="dataSource" ref="MydateSources"></property>
-    </bean>
+</bean>
 
 <!--2.声明业务方法它的事务属性(隔离级别，传播行为，超时时间)
 id:自定义名称，表示<tx:advice>和</tx:advice>之间的配置内容的
